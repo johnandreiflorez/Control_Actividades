@@ -1,0 +1,14 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Consulta_x_Registro` (IN `codResp` INT, IN `codActiv` INT, IN `codProy` INT)  NO SQL
+SELECT		responsable.codigo as COD_RESP, responsable.nombre as NOMBRE_RESP, 
+			actividad.codigo as COD_ACTIV, actividad.descripcion as NOMBRE_ACTIV,
+			proyecto.codigo as COD_PROY, proyecto.titulo as NOMBRE_PROY,
+			resp_act_proy.fecha_asig as FECHA_ASIG
+FROM		responsable INNER JOIN resp_act_proy
+ON			responsable.codigo = resp_act_proy.codresp
+INNER JOIN	actividad
+ON			actividad.codigo = resp_act_proy.codactiv
+INNER JOIN	proyecto
+ON			proyecto.codigo = resp_act_proy.codproy
+WHERE 		responsable.codigo = codResp
+AND 		actividad.codigo = codActiv
+AND			proyecto.codigo = codProy

@@ -1,0 +1,14 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listadoResponsablesConActividades` ()  NO SQL
+SELECT			responsable.codigo as COD_RESP,
+				responsable.nombre as NOMBRE_RESP,
+				responsable.telfijo as TELFIJO,
+				responsable.telmovil as TELMOVIL,
+				actividad.codigo as COD_ACTIV,
+				actividad.descripcion as NOMBRE_ACTIV,
+				actividad.fechaini as FI_ACTIV,
+				actividad.fechafin as FF_ACTIV
+FROM			responsable INNER JOIN resp_act_proy
+ON				responsable.codigo = resp_act_proy.codresp
+INNER JOIN		actividad
+ON				actividad.codigo = resp_act_proy.codactiv
+ORDER BY		COD_RESP, NOMBRE_RESP, COD_ACTIV, NOMBRE_ACTIV

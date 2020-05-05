@@ -1,0 +1,15 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listadoProyectosConActividades` ()  NO SQL
+SELECT			proyecto.codigo as COD_PROY,
+				proyecto.titulo as NOMBRE_PROY,
+				proyecto.fechaini as FI_PROY,
+				proyecto.fechafin as FF_PROY,
+				proyecto.costo as COSTO,
+				actividad.codigo as COD_ACTIV,
+				actividad.descripcion as NOMBRE_ACTIV,
+				actividad.fechaini as FI_ACTIV,
+				actividad.fechafin as FF_ACTIV
+FROM			proyecto INNER JOIN resp_act_proy
+ON				proyecto.codigo = resp_act_proy.codproy
+INNER JOIN		actividad
+ON				actividad.codigo = resp_act_proy.codactiv
+ORDER BY		COD_PROY, NOMBRE_PROY, COD_ACTIV, NOMBRE_ACTIV

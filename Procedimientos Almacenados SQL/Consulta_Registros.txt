@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Consulta_Registros` ()  NO SQL
+    COMMENT 'vamos a ver'
+SELECT		responsable.codigo as COD_RESP, responsable.nombre as NOMBRE_RESP, 
+			actividad.codigo as COD_ACTIV, actividad.descripcion as NOMBRE_ACTIV,
+			proyecto.codigo as COD_PROY, proyecto.titulo as NOMBRE_PROY,
+			resp_act_proy.fecha_asig as FECHA_ASIG
+FROM		responsable INNER JOIN resp_act_proy
+ON			responsable.codigo = resp_act_proy.codresp
+INNER JOIN	actividad
+ON			actividad.codigo = resp_act_proy.codactiv
+INNER JOIN	proyecto
+ON			proyecto.codigo = resp_act_proy.codproy
+ORDER BY	NOMBRE_PROY, NOMBRE_ACTIV, NOMBRE_RESP
